@@ -6,9 +6,17 @@ public class MyArrays {
 		System.out.println("[]: " + arrayToString(new int[] {}));
 		
 		System.out.println("-----------testing returnCopy()-----------");
-		int[] og = new int[] {10, 9, 8, 7, 6, 5, 4, 3, 3}
-		int[] copy = returnCopy(og)
-		System.out.println(arrayToString(og) + ": " + arrayToString(copy) + " " + og == copy);
+		int[] og = new int[] {10, 9, 8, 7, 6, 5, 4, 3, 3};
+		int[] copy = returnCopy(og);
+		System.out.println(arrayToString(og) + ": " + arrayToString(copy) + " " + (og == copy));
+
+		og = new int[] {0, 1, 9, 8 ,0 ,0, 10, 100, -10, 908};
+		copy = returnCopy(og);
+		System.out.println(arrayToString(og) + ": " + arrayToString(copy) + " " + (og == copy));
+
+		og = new int[] {10, -1, 900, 0, -4,};
+		copy = returnCopy(og);
+		System.out.println(arrayToString(og) + ": " + arrayToString(copy) + " " + (og == copy));
 	}
 	
 	public static String arrayToString(int[] nums) {
