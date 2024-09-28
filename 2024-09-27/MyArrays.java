@@ -17,6 +17,32 @@ public class MyArrays {
 		og = new int[] {10, -1, 900, 0, -4,};
 		copy = returnCopy(og);
 		System.out.println(arrayToString(og) + ": " + arrayToString(copy) + " " + (og == copy));
+		
+		og = new int[0];
+		copy = returnCopy(og);
+		System.out.println(arrayToString(og) + ": " + arrayToString(copy) + " " + (og == copy));
+		
+		System.out.println("-----------testing concatArray()-----------");
+		int[] ary1 = new int[] {10, -1, 100, 14, 30};
+		int[] ary2 = new int[] {9, 8, -5};
+		System.out.println(arrayToString(ary1) + " " + arrayToString(ary2) + ": " + arrayToString(concatArray(ary1, ary2)));
+		
+		ary1 = new int[] {0, 1, -10, -9};
+		ary2 = new int[] {5, 6, 100, -90, 2146478, 98};
+		System.out.println(arrayToString(ary1) + " " + arrayToString(ary2) + ": " + arrayToString(concatArray(ary1, ary2)));
+		
+		ary1 = new int[0];
+		ary2 = new int[] {10, 14};
+		System.out.println(arrayToString(ary1) + " " + arrayToString(ary2) + ": " + arrayToString(concatArray(ary1, ary2)));
+		
+		ary1 = new int[] {14, 16, 17, -20};
+		ary2 = new int[0];
+		System.out.println(arrayToString(ary1) + " " + arrayToString(ary2) + ": " + arrayToString(concatArray(ary1, ary2)));
+		
+		ary1 = new int[0];
+		ary2 = new int[0];
+		System.out.println(arrayToString(ary1) + " " + arrayToString(ary2) + ": " + arrayToString(concatArray(ary1, ary2)));
+		
 	}
 	
 	public static String arrayToString(int[] nums) {
@@ -40,5 +66,19 @@ public class MyArrays {
 		}
 		
 		return copy;
+	}
+	
+	public static int[] concatArray(int[]ary1, int[]ary2) {
+		int[] concat = new int[ary1.length + ary2.length];
+		int i = 0;
+		
+		for (i = 0; i < ary1.length; i++) {
+			concat[i] = ary1[i];
+		}
+		for (int n = 0; i - ary1.length < ary2.length; i++) {
+			concat[i] = ary2[i - ary1.length];
+		}
+		
+		return concat;
 	}
 }
