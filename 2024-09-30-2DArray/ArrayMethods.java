@@ -3,7 +3,7 @@ public class ArrayMethods{
 // Sandra Gao sandrag44@nycstudents.net
 
   public static void main(String[] args) {
-	System.out.println("-----------testing arrToString, arr2DSum-----------");
+	System.out.println("-----------testing arrToString, arr2DSum-----------\n");
     int[][] test = {{0, 1, 8 ,9}, {0, 0, 9}, {}};
     System.out.println("Expected [[0, 1, 8, 9], [0, 0, 9]]: " + arrToString(test));
     System.out.println("Expected 27: " + arr2DSum(test));
@@ -16,7 +16,7 @@ public class ArrayMethods{
     System.out.println("Expected [[-10, -2, -10], [22], [-17, 1]]: " + arrToString(test));
     System.out.println("Expected -16: " + arr2DSum(test));
 	
-	System.out.println("-----------tsting swapRC()-----------");
+	System.out.println("\n-----------testing swapRC()-----------\n");
 	test = new int[][] {{0, 0, 1}, {1, -10, 20}, {4, 6, 9}, {10, 20, 127}};
 	System.out.println("Expected [[0, 1, 4, 10], [0, -10, 6, 20], [1, 20, 9, 127]]: " + arrToString(swapRC(test)));
 	
@@ -26,9 +26,32 @@ public class ArrayMethods{
 	test = new int[][] {{4}, {20}, {-10}};
 	System.out.println("Expected [[4, 20, -10]]: " + arrToString(swapRC(test)));
 	
-	System.out.println("-----------testing replaceNegative()-----------");
-	test = new int[][] {{0, 0, 3, 1}, {1, -10, 20, 4, -5}, {-4, -6, 9}};
-	System.out.println("Expected [[0, 0, 3, 1], [1, 1, 20, 4, 0], [0, 0, 9]]: " + arrToString(swapRC(test)));
+	System.out.println("\n-----------testing replaceNegative()-----------\n");
+	test = new int[][] {{0, 0, 3, 1}, {1, -10, 20, 4, -5}, {-4, -6, -9}};
+	replaceNegative(test);
+	System.out.println("Expected [[0, 0, 3, 1], [1, 1, 20, 4, 0], [0, 0, 1]]: " + arrToString(test));
+	
+	System.out.println("\n-----------testing copy()-----------\n");
+	test = new int[][] {{0, -9, 10, 8}, {8, 8, 10, 11, -8}, {0, 0, 9, 10, 81, -100}};
+	System.out.println("Original: " + arrToString(test));
+	int[][] copy = copy(test);
+	test[0][1] = 10;
+	System.out.println("Check link: " + arrToString(test));
+	System.out.println("Copy: " + arrToString(copy) + "\n");
+	
+	test = new int[][] {{10, 10, -19, -100}, {-4, -10, 15, 17}, {21, 23, 77, 89}};
+	System.out.println("Original: " + arrToString(test));
+	copy = copy(test);
+	test[2][3] = 10;
+	System.out.println("Check link: " + arrToString(test));
+	System.out.println("Copy: " + arrToString(copy) + "\n");
+	
+	test = new int[][] {{10}, {}, {-100}};
+	System.out.println("Original: " + arrToString(test));
+	copy = copy(test);
+	test[0][0] = -20;
+	System.out.println("Check link: " + arrToString(test));
+	System.out.println("Copy: " + arrToString(copy) + "\n");
   }
 
   public static String arrToString(int[] nums){
@@ -79,15 +102,32 @@ public class ArrayMethods{
   }
   
   public static void replaceNegative(int[][] vals) {
-  	for (int i = 0; i < vals.length; i ++)
-  	{
-  		for (int n = 0; n < vals[i].length; n++)
-  		{
-  			if (vals[i][n] < 0 && i == n)
-  				vals[i][n] = 1;
-  			if (vals[i][n] < 0)
-  				vals[i][n] = 0;
+  	for (int i = 0; i < vals.length; i ++) {
+  		for (int n = 0; n < vals[i].length; n++) {
+  			if (vals[i][n] < 0) {
+				if (i == n) {
+					vals[i][n] = 1;
+				} else {
+					vals[i][n] = 0;
+				}
+			}
   		}
   	}
+  }
+  
+  public static int[][] copy(int[][] nums) {
+	  int[][] result = new int[nums.length][];
+	  
+	  for (int i = 0; i < nums.length; i++) {
+		  int[] arr = new int[nums[i].length];
+		  
+		  for (int n = 0; n < nums[i].length; n++) {
+			  arr[n] = nums[i][n];
+		  }
+		  
+		  result[i] = arr;
+	  }
+	  
+	  return result;
   }
 }
