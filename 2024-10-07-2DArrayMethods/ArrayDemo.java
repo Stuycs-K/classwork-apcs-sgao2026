@@ -15,6 +15,14 @@ public class ArrayDemo{
     System.out.println("Expected -16: " + arr2DSum(test));
 	
 	System.out.println("-----------testing countZeros2D()-----------\n");
+	test = new int[][] {{9, 0, 10, 9}, {5, 6, 7}, {0}};
+	System.out.println(Arrays.deepToString(test) + " expected 2: " + countZeros2D(test));
+	
+	test = new int[][] {{}, {}};
+	System.out.println(Arrays.deepToString(test) + " expected 0: " + countZeros2D(test));
+	
+	test = new int[][] {{10, -9}, {4}};
+	System.out.println(Arrays.deepToString(test) + "expected 0: " + countZeros2D(test));
   }
 
   public static String arrToString(int[] nums){
@@ -44,7 +52,7 @@ public class ArrayDemo{
   public static int countZeros2D(int[][] nums) {
   	int count = 0;
   	
-  	for (int i == 0; i < nums.length; i++) {
+  	for (int i = 0; i < nums.length; i++) {
   		for (int n = 0; n < nums[i].length; n++) {
   			if (nums[i][n] == 0) {
   				count ++;
