@@ -126,16 +126,16 @@ public class ArrayDemo{
 	}
   
 	public static String tableRow (int[] nums) {
-		String row = "<tr>";
+		String row = "<tr>\n";
 		for (int i = 0; i < nums.length; i++) {
-			row += "<td>" + nums[i] + "</td>";
+			row += "<td>" + nums[i] + "</td>\n";
 		}
-		return row + "</tr>";
+		return row + "</tr>\n";
 	}
 	
 	public static String htmlTable(int[][] nums) {
-		String table = "<table>";
-		for (int i = 0; i < nums[i].length; i++) {
+		String table = "<table>\n";
+		for (int i = 0; i < nums.length; i++) {
 			table += tableRow(nums[i]);
 		}
 		
