@@ -23,6 +23,16 @@ public class ArrayDemo{
 		
 		test = new int[][] {{10, -9}, {4}};
 		System.out.println(Arrays.deepToString(test) + "expected 0: " + countZeros2D(test));
+		
+		System.out.println("-----------testing htmlTable()-----------\n");
+		test = new int[][] {{0, 9, 8, -9}, {0, 0}, {-1000}};
+		System.out.println("input: " + Arrays.deepToString(test) + "\ntable:\n" + htmlTable(test));
+		
+		test = new int[][] {{}, {}, {}};
+		System.out.println("input: " + Arrays.deepToString(test) + "\ntable:\n" + htmlTable(test));
+		
+		test = new int[][] {{4}, {-6, -7}, {11111}};
+		System.out.println("input: " + Arrays.deepToString(test) + "\ntable:\n" + htmlTable(test));
 	}
 
 	public static String arrToString(int[] nums){
