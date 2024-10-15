@@ -7,8 +7,8 @@ public class Point{
 
   //Initialize this Point to have the same values as the other Point.
   public Point(Point other){
-    //COMPLETE THIS SECOND
-    //Then write test cases.
+    this.x = other.x;
+    this.y = other.y;
   }
 
   //Initialize this Point to have the provided values
