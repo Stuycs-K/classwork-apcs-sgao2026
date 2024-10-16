@@ -35,5 +35,12 @@ public class Demo{
     System.out.println( p1.distanceTo(p2));
     System.out.println( p2.distanceTo(p3));
     System.out.println( p1.distanceTo(p3));
+	
+    System.out.println("------------equilateral triangle with side length 1------------");
+	Point tri1 = new Point(0,0);
+	Point tri2 = new Point (1,0);
+	Point tri3 = new Point(0.5, Math.sqrt(3) / 2);
+	
+	System.out.println(tri1 + " " + tri2 + " " + tri3);
   }
 }
