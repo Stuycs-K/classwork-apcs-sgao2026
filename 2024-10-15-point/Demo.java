@@ -41,6 +41,8 @@ public class Demo{
 	Point tri2 = new Point (1,0);
 	Point tri3 = new Point(0.5, Math.sqrt(3) / 2);
 	
-	System.out.println(tri1 + " " + tri2 + " " + tri3);
+	System.out.println(tri1.distanceTo(tri2));
+	System.out.println(tri2.distanceTo(tri3));
+	System.out.println(tri1.distanceTo(tri3));
   }
 }
