@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class TriangleTester {
 	public static void main (String[]args) {
 		System.out.println(countTrianglesA("inputTri.txt"));
+		System.out.println(numLines("inputTri.txt"));
 	}
 	public static int countTrianglesA(String filename) {
 		int count = 0;
@@ -26,6 +27,7 @@ public class TriangleTester {
 					count++;
 				}
 			}
+		sets.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(filename + " not found.");
 		}
@@ -33,7 +35,32 @@ public class TriangleTester {
 		
 	}
 	
+	public static int countTrianglesB(String filename) {
+		int count = 0;
+		
+		return 0;
+		//int[][] set = new int[]
+	}
+	
 	public static boolean valid(int[] sides) {
 		return sides[0] < (sides[1] + sides[2]) && sides[1] < (sides[0] + sides[2]) && sides[2] < (sides[0] + sides[1]);
 	}
+	public static int numLines (String filename) {
+		try {
+			int count = 0;
+			File file = new File(filename);
+			Scanner txt = new Scanner(file);
+			
+			while (txt.hasNextLine()) {
+				txt.nextLine();
+				count++;
+			}
+			txt.close();
+			return count;
+		} catch (FileNotFoundException e) {
+			System.out.println(filename + " not found");
+		}
+		return 0;
+	}
+	
 }
