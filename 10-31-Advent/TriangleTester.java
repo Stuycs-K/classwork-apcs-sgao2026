@@ -34,14 +34,22 @@ public class TriangleTester {
 		return count;
 		
 	}
-	
+	/*
 	public static int countTrianglesB(String filename) {
 		int count = 0;
 		
-		return 0;
-		//int[][] set = new int[]
+		try {
+			int[][] set = new int[numLines(filename)][3];
+			
+			File file = new File(filename);
+			Scanner txt = new Scanner(file);
+			
+			for (int i = 0; i < set.length; i++) {
+				
+			}
+		}
 	}
-	
+	*/
 	public static boolean valid(int[] sides) {
 		return sides[0] < (sides[1] + sides[2]) && sides[1] < (sides[0] + sides[2]) && sides[2] < (sides[0] + sides[1]);
 	}
@@ -62,5 +70,22 @@ public class TriangleTester {
 		}
 		return 0;
 	}
-	
+	public static String[][] makeSet(String filename) {
+		String[][] set = new String[numLines(filename)][3];
+		
+		try {
+			File file = new File(filename);
+			Scanner txt = new Scanner(file);
+				
+			for (int i = 0; i < set.length; i++) {
+				while (txt.hasNextLine()) {
+					set[i] = txt.nextLine().split(" ");
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(filename + " not found");
+		}
+			
+		return set;
+	}
 }
