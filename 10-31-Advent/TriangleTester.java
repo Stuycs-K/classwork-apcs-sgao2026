@@ -4,8 +4,11 @@ import java.util.Scanner;
 
 public class TriangleTester {
 	public static void main (String[]args) {
+		makeSet("inputTri.txt");
 		System.out.println(countTrianglesA("inputTri.txt"));
 		System.out.println(numLines("inputTri.txt"));
+		// System.out.println(countTrianglesB("inputTri.txt"));
+		System.out.println("File not found");
 	}
 	public static int countTrianglesA(String filename) {
 		int count = 0;
@@ -27,65 +30,93 @@ public class TriangleTester {
 					count++;
 				}
 			}
-		sets.close();
+			sets.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(filename + " not found.");
 		}
 		return count;
 		
 	}
-	/*
+	
 	public static int countTrianglesB(String filename) {
 		int count = 0;
 		
-		try {
-			int[][] set = new int[numLines(filename)][3];
-			
+		try {			
 			File file = new File(filename);
 			Scanner txt = new Scanner(file);
 			
-			for (int i = 0; i < set.length; i++) {
+			String[][] set = makeSet(filename);
+
+			
+			for (int i = 0; i < 3; i++) {
+				int[] sides = new int[3];
+				int n = 0;
 				
+				while (n < set.length) {
+					while(n + 1 % 3 != 0) {
+						System.out.println("[" + sides[0] + ", " + sides[1] + ", " + sides[2] + "]");
+						System.out.println(n);
+						System.out.println(i);
+						System.out.println(set[n][i]);
+						sides[n % 3] = Integer.parseInt(set[n][i]);
+						System.out.println(sides[n % 3]);
+						n++;
+					}
+					if (valid(sides)) {
+						count++;
+					}
+				}
 			}
+			txt.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(filename + " file not found");
 		}
+		return count;
 	}
-	*/
+	
 	public static boolean valid(int[] sides) {
 		return sides[0] < (sides[1] + sides[2]) && sides[1] < (sides[0] + sides[2]) && sides[2] < (sides[0] + sides[1]);
 	}
 	public static int numLines (String filename) {
-		try {
-			int count = 0;
-			File file = new File(filename);
-			Scanner txt = new Scanner(file);
-			
-			while (txt.hasNextLine()) {
-				txt.nextLine();
-				count++;
-			}
-			txt.close();
-			return count;
-		} catch (FileNotFoundException e) {
-			System.out.println(filename + " not found");
-		}
-		return 0;
-	}
-	public static String[][] makeSet(String filename) {
-		String[][] set = new String[numLines(filename)][3];
+		int count = 0;
 		
 		try {
 			File file = new File(filename);
-			Scanner txt = new Scanner(file);
-				
-			for (int i = 0; i < set.length; i++) {
-				while (txt.hasNextLine()) {
-					set[i] = txt.nextLine().split(" ");
-				}
+			Scanner s = new Scanner(file);
+			
+			while (s.hasNextLine()) {
+				s.nextLine();
+				count++;
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(filename + " not found");
 		}
+		
+		return count;
+	}
+	public static String[][] makeSet(String filename) {		
+		try {
+			File file = new File(filename);
+			Scanner s = new Scanner(file);
 			
-		return set;
+			String[][] set = new String[numLines(filename)][3];
+			int i = 0;
+			System.out.println(s.nextLine());
+				
+			while (s.hasNextLine()) {
+				String line = s.nextLine();
+				System.out.println(line);
+				set[i] = s.nextLine().split(" ");
+				System.out.println("[" + set[i][0] + ", " + set[i][1] + ", " + set[i][2]);
+				i++;
+			}
+			
+			s.close();
+			return set;
+		} catch (FileNotFoundException e) {
+			System.out.println(filename + " not found");
+		}
+		
+		return new String[1][1];
 	}
 }
