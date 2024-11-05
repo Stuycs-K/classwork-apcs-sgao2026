@@ -42,7 +42,7 @@ public class TriangleTester {
 			File file = new File(filename);
 			Scanner txt = new Scanner(file);
 			
-			String[][] set = makeSet(filename);
+			int[][] set = makeSet(filename);
 			
 			for (int i = 0; i < 3; i++) {
 				int[] sides = new int[3];
@@ -50,10 +50,10 @@ public class TriangleTester {
 				
 				while (n < set.length) {
 					while((n + 1) % 3 != 0) {
-						sides[n % 3] = Integer.parseInt(set[n][i]);
+						sides[n % 3] = set[n][i];
 						n++;
 					}
-					sides[2] = Integer.parseInt(set[n][i]);
+					sides[2] = set[n][i];
 					if (valid(sides)) {
 						count++;
 					}
@@ -88,16 +88,22 @@ public class TriangleTester {
 		
 		return count;
 	}
-	public static String[][] makeSet(String filename) {		
+	public static int[][] makeSet(String filename) {		
 		try {
 			File file = new File(filename);
 			Scanner s = new Scanner(file);
 			
-			String[][] set = new String[numLines(filename)][3];
+			int[][] set = new int[numLines(filename)][3];
 			int i = 0;
 				
 			while (s.hasNextLine()) {
-				set[i] = s.nextLine().split(" ");
+				Scanner z = new Scanner(s.nextLine());
+				int n = 0;
+				
+				while (z.hasNextInt()) {
+					set[i][n] = z.nextInt();
+					n++;
+				}
 				i++;
 			}
 			
@@ -107,6 +113,6 @@ public class TriangleTester {
 			System.out.println(filename + " not found");
 		}
 		
-		return new String[1][1];
+		return new int[1][1];
 	}
 }
