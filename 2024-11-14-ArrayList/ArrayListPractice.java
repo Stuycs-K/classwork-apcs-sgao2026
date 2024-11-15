@@ -33,5 +33,29 @@ public class ArrayListPractice {
     }
     return ans;
   }
+  
+  public static ArrayList<String> mixLists(ArrayList<String> a, ArrayList<String> b) {
+	  ArrayList<String> ans = new ArrayList<String>(a.size() + b.size());
+	  
+	  int i;
+	  for (i = 0; i < a.size() && i < b.size(); i++) {
+		  ans.add(a.get(i));
+		  ans.add(b.get(i));
+	  }
+	  
+	  if (a.size() > b.size()) {
+		  while (i < a.size()) {
+			  ans.add(a.get(i));
+			  i++;
+		  }
+	  } else if (a.size() < b.size()) {
+		  while (i < b.size()) {
+			  ans.add(b.get(i));
+			  i++;
+		  }
+	  }
+	  
+	  return ans;
+  }
 
 }
