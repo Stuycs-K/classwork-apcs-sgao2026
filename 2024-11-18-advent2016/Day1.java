@@ -1,9 +1,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Day1 {
 	public static void main(String[]args) {
-		run();
+		pt2();
+	}
+	public static void pt2() {
+		String[][] dir = initiate();
+		int turns = dir[0].length;
+		
 	}
 	public static void run() {
 		int degrees = 0;
@@ -17,16 +23,16 @@ public class Day1 {
 			int blocks = Integer.parseInt(directions[1][i]);
 			
 			if (turn.equals("R")) {
-				degrees += 90;
+				degrees += 1;
 			} else {
-				degrees -= 90;
+				degrees -= 1;
 			}
 			
-			if ((degrees / 90) % 4 == 0) {
+			if (degrees % 4 == 0) {
 				vblocks += blocks;
-			} else if ((degrees / 90) % 4 == 1) {
+			} else if (degrees % 4 == 1) {
 				hblocks += blocks;
-			} else if ((degrees / 90) % 4 == 2) {
+			} else if (degrees % 4 == 2) {
 				vblocks -= blocks;
 			} else {
 				hblocks -= blocks;
