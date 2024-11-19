@@ -38,11 +38,10 @@ public class Day1 {
 			}
 			
 			boolean signFlip = false;
-			int tripped = 0;
 			for (int a = 0; a + 3 < coor.size(); a+=2) {
-				tripped++;
 				boolean xflip;
 				boolean yflip;
+				boolean orien; // true v false h
 				
 				int x1 = coor.get(a); // 0
 				int x2 = coor.get(a + 2); // 4
@@ -52,19 +51,27 @@ public class Day1 {
 				if (degrees % 4 == 0) {
 					xflip = hblocks > Math.min(x1, x2) && hblocks < Math.max(x1, x2);
 					yflip = vblocks > y1 && (vblocks - blocks) < y1;
+					orien = true;
 				} else if (degrees % 4 == 1) {
 					xflip = hblocks > x1 && (hblocks - blocks) < x1;
 					yflip = vblocks > Math.min(y1, y2) && hblocks < Math.max(y1, y2);
+					orien = false;
 				} else if (degrees % 4 == 2) {
 					xflip = hblocks > Math.min(x1, x2) && hblocks < Math.max(x1, x2); // 4
 					yflip = vblocks < y1 && (vblocks + blocks) > y1; // -4
+					orien = true;
 				} else {
 					xflip = hblocks < x1 && (hblocks - blocks) > x1;
 					yflip = vblocks > Math.min(y1, y2) && hblocks < Math.max(y1, y2);
+					orien = false;
 				}
 				
 				if (xflip && yflip) {
-					System.out.println("(" + hblocks + ", " + vblocks + ")" + tripped);
+					if (orien) {
+						System.out.println("(" + hblocks + ", " + y1 + ")");
+					} else {
+						System.out.println("(" + x1 + ", " + vblocks + ")");
+					}
 				}
 			}
 			coor.add(hblocks);
