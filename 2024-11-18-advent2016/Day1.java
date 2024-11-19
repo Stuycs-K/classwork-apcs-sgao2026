@@ -10,6 +10,50 @@ public class Day1 {
 		String[][] dir = initiate();
 		int turns = dir[0].length;
 		
+		ArrayList<String> coor = new ArrayList<String>();
+		int degrees = 0;
+		int hblocks = 0;
+		int vblocks = 0;
+				
+		for (int i = 0; i < turns; i++) {
+			String turn = dir[0][i];
+			int blocks = Integer.parseInt(dir[1][i]);
+			
+			if (turn.equals("R")) {
+				degrees += 1;
+			} else {
+				degrees -= 1;
+			}
+			
+			if (degrees % 4 == 0) {
+				vblocks += blocks;
+			} else if (degrees % 4 == 1) {
+				hblocks += blocks;
+			} else if (degrees % 4 == 2) {
+				vblocks -= blocks;
+			} else {
+				hblocks -= blocks;
+			}
+			
+			coor.add("(" + hblocks + ", " + vblocks + ")");
+		}
+		
+		String mark = "";
+		for (int i = 0; i < coor.size(); i++) {
+			String search = coor.get(i);
+			System.out.println(search);
+			
+			if (mark.length() == 0) {
+				ArrayList<String> temp = copy(coor);
+				coor.remove(search);
+				if (coor.indexOf(search) != -1) {
+					mark = search;
+				}
+				coor = temp;
+			}
+		}
+		System.out.println(mark);
+		//System.out.println(Math.abs(Integer.parseInt(mark.substring(1,mark.indexOf(", ")))) + Math.abs(Integer.parseInt(mark.substring(4,5))));
 	}
 	public static void run() {
 		int degrees = 0;
@@ -60,5 +104,14 @@ public class Day1 {
 			System.out.println("oops");
 		}
 		return new String[1][1];
+	}
+	public static ArrayList<String> copy(ArrayList<String> og) {
+		ArrayList<String> copy = new ArrayList<String>(og.size());
+		
+		for (int i = 0; i < og.size(); i++) {
+			copy.add(og.get(i));
+		}
+		
+		return copy;
 	}
 }
