@@ -10,11 +10,13 @@ public class Day1 {
 		String[][] dir = initiate();
 		int turns = dir[0].length;
 		
-		ArrayList<String> coor = new ArrayList<String>();
 		int degrees = 0;
 		int hblocks = 0;
 		int vblocks = 0;
-				
+		
+		ArrayList<Integer> coor = new ArrayList<Integer>();
+		coor.add(0);
+		coor.add(0);
 		for (int i = 0; i < turns; i++) {
 			String turn = dir[0][i];
 			int blocks = Integer.parseInt(dir[1][i]);
@@ -35,25 +37,40 @@ public class Day1 {
 				hblocks -= blocks;
 			}
 			
-			coor.add("(" + hblocks + ", " + vblocks + ")");
-		}
-		
-		String mark = "";
-		for (int i = 0; i < coor.size(); i++) {
-			String search = coor.get(i);
-			System.out.println(search);
-			
-			if (mark.length() == 0) {
-				ArrayList<String> temp = copy(coor);
-				coor.remove(search);
-				if (coor.indexOf(search) != -1) {
-					mark = search;
+			boolean signFlip = false;
+			int tripped = 0;
+			for (int a = 0; a + 3 < coor.size(); a+=2) {
+				tripped++;
+				boolean xflip;
+				boolean yflip;
+				
+				int x1 = coor.get(a); // 0
+				int x2 = coor.get(a + 2); // 4
+				int y1 = coor.get(a + 1); // 0
+				int y2 = coor.get(a + 3); // 0
+				
+				if (degrees % 4 == 0) {
+					xflip = hblocks > Math.min(x1, x2) && hblocks < Math.max(x1, x2);
+					yflip = vblocks > y1 && (vblocks - blocks) < y1;
+				} else if (degrees % 4 == 1) {
+					xflip = hblocks > x1 && (hblocks - blocks) < x1;
+					yflip = vblocks > Math.min(y1, y2) && hblocks < Math.max(y1, y2);
+				} else if (degrees % 4 == 2) {
+					xflip = hblocks > Math.min(x1, x2) && hblocks < Math.max(x1, x2); // 4
+					yflip = vblocks < y1 && (vblocks + blocks) > y1; // -4
+				} else {
+					xflip = hblocks < x1 && (hblocks - blocks) > x1;
+					yflip = vblocks > Math.min(y1, y2) && hblocks < Math.max(y1, y2);
 				}
-				coor = temp;
+				
+				if (xflip && yflip) {
+					System.out.println("(" + hblocks + ", " + vblocks + ")" + tripped);
+				}
 			}
+			coor.add(hblocks);
+			coor.add(vblocks);
 		}
-		System.out.println(mark);
-		//System.out.println(Math.abs(Integer.parseInt(mark.substring(1,mark.indexOf(", ")))) + Math.abs(Integer.parseInt(mark.substring(4,5))));
+		System.out.println(coor);
 	}
 	public static void run() {
 		int degrees = 0;
