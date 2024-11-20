@@ -35,4 +35,26 @@ public class Day4 {
 		}
 		return lines;
 	}
+	
+	public static String[] allNames(String[][] lines) {
+		String[] names = new String[lines.length];
+		for (int i = 0; i < lines.length; i++) {
+			names[i] = lines[i][0];
+		}
+		return names;
+	}
+	public static String[] allIDs(String[][] lines) {
+		String[] IDs = new String[lines.length];
+		for (int i = 0; i < lines.length; i++) {
+			IDs[i] = lines[i][1];
+		}
+		return IDs;
+	}
+	public static String[] allChecks(String[][] lines) {
+		String[] checksums = new String[lines.length];
+		for (int i = 0; i < lines.length; i++) {
+			checksums[i] = lines[i][2];
+		}
+		return checksums;
+	}
 }
