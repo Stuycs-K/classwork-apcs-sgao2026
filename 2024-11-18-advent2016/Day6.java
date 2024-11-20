@@ -34,9 +34,17 @@ public class Day6 {
 	}
 	public static int[] counts (String[] letters) {
 		String line = Arrays.toString(letters);
+		line = line.substring(1, line.length() - 1);
+		line = line.replaceAll(", ", "");
+		
 		char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 		int[] dict = new int[26];
 		
+		for (int i = 0; i < alphabet.length; i++) {
+			dict[i] = count(line, alphabet[i]);
+		}
+		
+		return dict;
 	}
 	public static int count (String s, char c) {
 		int count = 0;
