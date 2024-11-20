@@ -20,6 +20,14 @@ public class Day4 {
 			while (in.hasNextLine()) {
 				String line = in.nextLine();
 				
+				int iCheck = line.indexOf("[") + 1;
+				int iSect = line.lastIndexOf("-") + 1;
+				String checksum = line.substring(iCheck, line.length() - 1);
+				String ID = line.substring(iSect, iCheck - 1);
+				String name = line.substring(0, iSect - 1);
+				
+				lines[i] = new String[] {name, ID, checksum};
+				i++;
 			}
 			System.out.println(Arrays.deepToString(lines));
 		} catch (FileNotFoundException e) {
