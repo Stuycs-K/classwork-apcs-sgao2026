@@ -10,6 +10,11 @@ public class Day4 {
 	}
 	public static void run() {
 		String[][] lines = initiate();
+		String[] allNames = allNames(lines);
+		String[] allIDs = allIDs(lines);
+		String[] allChecks = allChecks(lines);
+		
+		
 	}
 	
 	public static String[][] initiate() {
@@ -39,7 +44,7 @@ public class Day4 {
 	public static String[] allNames(String[][] lines) {
 		String[] names = new String[lines.length];
 		for (int i = 0; i < lines.length; i++) {
-			names[i] = lines[i][0];
+			names[i] = lines[i][0].replaceAll("-", "");
 		}
 		return names;
 	}
