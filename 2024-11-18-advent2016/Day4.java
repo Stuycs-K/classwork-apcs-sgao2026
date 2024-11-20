@@ -19,8 +19,9 @@ public class Day4 {
 			ArrayList<ArrayList<String>> sorted = sortCount(allNames[i]);
 			String trial = sorted.get(0).get(0) + sorted.get(1).get(0) + sorted.get(2).get(0) + sorted.get(3).get(0) + sorted.get(4).get(0);
 			
-			if (trial.equals(allIDs[i])) {
-				sum += Integer.parseInt(allChecks[i]);
+			System.out.println(trial + " " + allChecks[i]);
+			if (trial.equals(allChecks[i])) {
+				sum += Integer.parseInt(allIDs[i]);
 			}
 		}
 		System.out.println(sum);
@@ -88,7 +89,7 @@ public class Day4 {
 				for (int p = 0; p < sorted.size() && place == sorted.size(); p++) {
 					if (Integer.parseInt(sorted.get(p).get(1)) < Integer.parseInt(unsorted[i])) {
 						place = p;
-						System.out.println(unit + " triggered 1 " + place);
+						// System.out.println(unit + " triggered 1 " + place);
 					} else if (sorted.get(p).get(1).equals(unsorted[i])) {
 						try {
 							while ((sorted.get(p).get(0).charAt(0) < unsorted[i - 1].charAt(0)) && sorted.get(p).get(1).equals(unsorted[i])) {
@@ -96,11 +97,11 @@ public class Day4 {
 							}
 						} catch (IndexOutOfBoundsException e) {}
 						place = p;
-						System.out.println(unit + " triggered 2 " + place);
+						// System.out.println(unit + " triggered 2 " + place);
 					}
 				}
 				sorted.add(place, unit);
-				System.out.println(sorted);
+				// System.out.println(sorted);
 			}
 		}
 		System.out.println(sorted);
