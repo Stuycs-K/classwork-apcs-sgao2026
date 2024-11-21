@@ -10,6 +10,22 @@ public class Day6 {
 	}
 	public static void run() {
 		String[][] bits = initiate();
+		char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+		String word = "";
+		
+		for (int b = 0; b < bits[0].length; b++) {
+			String[] letters = new String[bits.length];
+			for (int i = 0; i < bits.length; i++) {
+				letters[i] = bits[i][b];
+				// System.out.println(letters[i]);
+			}
+			
+			int[] counts = counts(letters);
+			System.out.println(Arrays.toString(counts));
+			System.out.println(alphabet[arrayMax(counts)]);
+			word = word + alphabet[arrayMax(counts)];
+		}
+		System.out.println(word);
 	}
 	
 	public static String[][] initiate() {
@@ -29,13 +45,14 @@ public class Day6 {
 		} catch (FileNotFoundException e) {
 			System.out.println("oops");
 		}
-		System.out.println(Arrays.deepToString(bits));
+		// System.out.println(Arrays.deepToString(bits));
 		return bits;
 	}
 	public static int[] counts (String[] letters) {
 		String line = Arrays.toString(letters);
 		line = line.substring(1, line.length() - 1);
 		line = line.replaceAll(", ", "");
+		// System.out.println(line);
 		
 		char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 		int[] dict = new int[26];
@@ -44,6 +61,7 @@ public class Day6 {
 			dict[i] = count(line, alphabet[i]);
 		}
 		
+		// System.out.println(Arrays.toString(dict));
 		return dict;
 	}
 	public static int count (String s, char c) {
@@ -54,5 +72,20 @@ public class Day6 {
 			}
 		}
 		return count;
+	}
+	public static int arrayMax (int[] a) {
+		int max = -1;
+		
+		for (int i = 1; i < a.length; i++) {
+			try {
+				if (a[i] > a[max]) {
+					System.out.println(a[i] + " > " + a[max] + ": " + (a[i] > a[max]));
+					max = i;
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {
+				max++;
+			}
+		}
+		return max;
 	}
 }
