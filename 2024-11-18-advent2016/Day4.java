@@ -6,25 +6,62 @@ import java.util.ArrayList;
 
 public class Day4 {
 	public static void main(String[]args) {
-		run();
+		System.out.println(decode("qzmtzixmtkozyivhz", 343));
+		pt2();
 	}
-	public static void run() {
+	
+	public static void pt2() {
+		ArrayList<String> validNames = run(); // ID, name
+		
+		int count = 0; 
+		for (int i = 0; i < validNames.size(); i += 2) {
+			count += Integer.parseInt(validNames.get(i));
+		}
+		System.out.println(count);
+		
+		for (int i = 1; i < validNames.size(); i += 2) {
+			int ID = Integer.parseInt(validNames.get(i - 1));
+			// char[] cipher = cipher(ID);
+			
+			String[] words = validNames.get(i).split("-");
+			// if (words[0].length() == 3) {
+				String room = "";
+				
+				for (int w = 0; w < words.length; w++) {
+					room += decode(words[w], ID);
+					
+					if (w != words.length - 1) {
+						room += " ";
+					}
+			 	}
+				
+				System.out.println(ID + ": " + room);
+			// } 
+		}
+	}
+	public static ArrayList<String> run() {
 		String[][] lines = initiate();
 		String[] allNames = allNames(lines);
+		String[] allRawNames = allNamesDashed(lines);
 		String[] allIDs = allIDs(lines);
 		String[] allChecks = allChecks(lines);
 		
 		int sum = 0;
+		ArrayList<String> validNames = new ArrayList<String>();
 		for (int i = 0; i < allNames.length; i++) {
 			ArrayList<ArrayList<String>> sorted = sortCount(allNames[i]);
 			String trial = sorted.get(0).get(0) + sorted.get(1).get(0) + sorted.get(2).get(0) + sorted.get(3).get(0) + sorted.get(4).get(0);
 			
-			System.out.println(trial + " " + allChecks[i]);
+			// System.out.println(trial + " " + allChecks[i]);
 			if (trial.equals(allChecks[i])) {
 				sum += Integer.parseInt(allIDs[i]);
+				validNames.add(allIDs[i] + "");
+				validNames.add(allRawNames[i]);
 			}
 		}
 		System.out.println(sum);
+		// System.out.println(validNames);
+		return validNames;
 	}
 	
 	public static String[][] initiate() {
@@ -58,6 +95,13 @@ public class Day4 {
 		}
 		return names;
 	}
+	public static String[] allNamesDashed(String[][] lines) {
+		String[] names = new String[lines.length];
+		for (int i = 0; i < lines.length; i++) {
+			names[i] = lines[i][0];
+		}
+		return names;
+	}
 	public static String[] allIDs(String[][] lines) {
 		String[] IDs = new String[lines.length];
 		for (int i = 0; i < lines.length; i++) {
@@ -76,8 +120,8 @@ public class Day4 {
 		ArrayList<ArrayList<String>> sorted = new ArrayList<ArrayList<String>>();
 		String[] unsorted = rawCount(name);
 		
-		System.out.println(Arrays.toString(unsorted));
-		System.out.println(name);
+		// System.out.println(Arrays.toString(unsorted));
+		// System.out.println(name);
 		
 		for (int i = 1; i < unsorted.length; i += 2) {
 			if (Integer.parseInt(unsorted[i]) != 0) {
@@ -104,7 +148,7 @@ public class Day4 {
 				// System.out.println(sorted);
 			}
 		}
-		System.out.println(sorted);
+		// System.out.println(sorted);
 		return sorted;
 	}
 	public static String[] rawCount(String line) {
@@ -125,5 +169,34 @@ public class Day4 {
 			}
 		}
 		return count;
+	}
+	public static char[] cipher(int shift) {
+		shift %= 26;
+		char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+		char[] cipher = new char[26];
+		
+		for (int i = shift; i < alphabet.length; i++) {
+			cipher[i - shift] = alphabet[i];
+		}
+		
+		for (int i = 0; i < shift; i++) {
+			cipher[26 - shift + i] = alphabet[i];
+		}
+		// System.out.println(Arrays.toString(cipher));
+		return cipher;
+	}
+	public static String decode (String og, int shift) {
+		String alphabet = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"; // .toCharArray();
+		shift %= 26;
+		String decoded = "";
+		
+		for (int i = 0; i < og.length(); i++) {
+			// System.out.println(alphabet[(new String(cipher)).indexOf(og.charAt(i))]);
+			int ini = alphabet.indexOf(og.charAt(i)) + shift;
+			
+			decoded = decoded + alphabet.charAt(ini);
+			// System.out.println(decoded);
+		}
+		return decoded;
 	}
 }
