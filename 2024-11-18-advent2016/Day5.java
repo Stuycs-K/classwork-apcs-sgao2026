@@ -9,7 +9,7 @@ public class Day5 {
 	
     // Driver code
     public static void main(String args[]) throws NoSuchAlgorithmException {
-        run();
+        run2();
     }
 	
 	public static void run() {
@@ -24,6 +24,24 @@ public class Day5 {
 			pass += validHash(getMD5(ID + i));
 			i++;
 		}
+		System.out.println(pass);
+	}
+	public static void run2() {
+		String ID = "wtnhxymk";
+		String curiosity = "";
+		char[] pass = blank();
+		
+		int i = 0;
+		while (isBlank(pass)) {
+			while(validHash2(getMD5(ID + i), pass).length() == 0) {
+				i++;
+			}
+			String s = validHash2(getMD5(ID + i), pass);
+			curiosity += s + " ";
+			pass[Integer.parseInt(s.substring(0, 1))] = s.charAt(1);
+			i++;
+		}
+		System.out.print(curiosity);
 		System.out.println(pass);
 	}
 	
@@ -42,10 +60,33 @@ public class Day5 {
 	}
 	public static String validHash(String hash) {
 		if (hash.substring(0, 5).equals("00000")) {
-			System.out.println(hash + " " + hash.substring(5, 6));
+			// System.out.println(hash + " " + hash.substring(5, 6));
 			return hash.substring(5, 6);
 		} 
 		return "";
+	}
+	public static String validHash2 (String hash, char[] c) {
+		if (validHash(hash).length() > 0) {
+			if (validHash(hash).charAt(0) >= '0' && validHash(hash).charAt(0) <= '7' && c[Integer.parseInt(validHash(hash))] == '-') {
+				// System.out.println(hash + " " + hash.substring(5, 7));
+				return hash.substring(5, 7);
+			}
+		}
+		return "";
+	}
+	public static char[] blank() {
+		char[] pass = new char[8];
+		for (int i = 0; i < 8; i++) {
+			pass[i] = '-';
+		}
+		return pass;
+	} 
+	public static boolean isBlank(char[] c) {
+		boolean is = false;
+		for (int i = 0; i < c.length; i++) {
+			is = is || (c[i] == '-');
+		}
+		return is;
 	}
 	/* public static String getMd5(String input) {
         try {
