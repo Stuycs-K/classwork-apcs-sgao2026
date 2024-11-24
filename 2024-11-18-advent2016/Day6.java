@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Day6 {
 	public static void main(String[]args) {
-		run();
+		run2();
 	}
 	public static void run() {
 		String[][] bits = initiate();
@@ -24,6 +24,25 @@ public class Day6 {
 			System.out.println(Arrays.toString(counts));
 			System.out.println(alphabet[arrayMax(counts)]);
 			word = word + alphabet[arrayMax(counts)];
+		}
+		System.out.println(word);
+	}
+	public static void run2() {
+		String[][] bits = initiate();
+		char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+		String word = "";
+		
+		for (int b = 0; b < bits[0].length; b++) {
+			String[] letters = new String[bits.length];
+			for (int i = 0; i < bits.length; i++) {
+				letters[i] = bits[i][b];
+				// System.out.println(letters[i]);
+			}
+			
+			int[] counts = counts(letters);
+			System.out.println(Arrays.toString(counts));
+			System.out.println(alphabet[arrayMin(counts)]);
+			word = word + alphabet[arrayMin(counts)];
 		}
 		System.out.println(word);
 	}
@@ -87,5 +106,20 @@ public class Day6 {
 			}
 		}
 		return max;
+	}	
+	public static int arrayMin (int[] a) {
+		int min = 0;
+		
+		for (int i = 1; i < a.length; i++) {
+			try {
+				if (a[i] < a[min]) {
+					System.out.println(a[i] + " < " + a[min] + ": " + (a[i] < a[min]));
+					min = i;
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {
+				min++;
+			}
+		}
+		return min;
 	}
 }
