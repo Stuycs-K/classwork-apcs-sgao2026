@@ -23,7 +23,7 @@ public class Driver {
 		go(3, 2);
 		RESET();
 		colorFore(CYAN);
-		line(78,"w"); merry christmas
+		line(78,"w");
 		
 		go(4,1);
 		christmas(4, 1);
@@ -34,7 +34,8 @@ public class Driver {
 		go(4, 58);
 		christmas(4, 58);
 		
-		go(23, 40);
+		go(23, 33);
+		RESET();
 		bright(); colorFore(WHITE);
 		System.out.print("merry christmas");
 		
