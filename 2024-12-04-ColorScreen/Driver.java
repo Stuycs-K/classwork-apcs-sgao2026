@@ -4,19 +4,22 @@ public class Driver {
 		CLEAR(); HIDE(); LEFT();
 
 		int[] things = randomThree();
-		colorFore(RED);
-		border(80,30,"f///@");
+		bright(WHITE);
+		// colorFore(255,255,255);
+		colorBack(RED);
+		border(80,30,"/");
+		RESET();
 		
 		go(1, 0);
 		int[] locs = distribute(3, 80);
 		for (int i = 0; i < things.length; i++) {
 			go(2,locs[i]);
 			if (things[i] < 25) {
-				bright(); colorFore(RED);
+				bright(RED);
 			} else if (things[i] > 75) {
-				bright(); colorFore(GREEN);
+				bright(GREEN);
 			} else {
-				bright(); colorFore(WHITE);
+				bright(WHITE);
 			}
 			System.out.print(things[i]);
 		}
@@ -36,7 +39,7 @@ public class Driver {
 		
 		go(23, 33);
 		RESET();
-		bright(); colorFore(WHITE);
+		bright(WHITE);
 		System.out.print("merry christmas");
 		
 		go(30, 0);
@@ -111,7 +114,7 @@ public class Driver {
 		go(r + 7, c + 8);
 		colorBack(GREEN);
 		System.out.print("  ");
-		colorBack(WHITE);
+		colorBack(255,255,255);
 		System.out.print(" ");
 		colorBack(GREEN);
 		System.out.print("    ");
@@ -194,9 +197,9 @@ public class Driver {
 		ESC();
 		System.out.print("48;2;" + r + ";" + g + ";" + b + "m");
 	}
-	public static void bright() {
+	public static void bright(int color) {
 		ESC();
-		System.out.print(1 + "m");
+		System.out.print(color + ";" + 1 + "m");
 	}	
 	public static void dark() {
 		ESC();
