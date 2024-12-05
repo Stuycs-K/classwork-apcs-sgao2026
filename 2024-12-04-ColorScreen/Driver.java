@@ -5,7 +5,7 @@ public class Driver {
 
 		int[] things = randomThree();
 		colorFore(RED);
-		border(80,30,"f\\\\@");
+		border(80,30,"f///@");
 		
 		go(1, 0);
 		int[] locs = distribute(3, 80);
@@ -21,10 +21,18 @@ public class Driver {
 			System.out.print(things[i]);
 		}
 		go(3, 2);
-		
 		RESET();
 		colorFore(CYAN);
-		line(78,"[\\/\\]");
+		line(78,"w");
+		
+		go(4,1);
+		christmas(4, 1);
+		go(4, 20);
+		christmas(4, 20);
+		go(4, 39);
+		christmas(4, 39);
+		go(4, 58);
+		christmas(4, 58);
 		
 		go(30, 0);
 		RESET(); SHOW();
@@ -73,6 +81,87 @@ public class Driver {
 			here++;
 		}
 		return locs;
+	}
+	public static void christmas(int r, int c) {
+		go(r + 2, c + 11);
+		colorBack(GREEN);
+		System.out.print(" ");
+		
+		go(r + 3, c + 10);
+		colorBack(GREEN);
+		System.out.print("   ");
+		
+		go(r + 4, c + 9);
+		colorBack(GREEN);
+		System.out.print("     ");
+		
+		go(r + 5, c + 8);
+		colorBack(GREEN);
+		System.out.print("       ");
+		
+		go(r + 6, c + 9);
+		colorBack(GREEN);
+		System.out.print("     ");
+		
+		go(r + 7, c + 8);
+		colorBack(GREEN);
+		System.out.print("  ");
+		colorBack(WHITE);
+		System.out.print(" ");
+		colorBack(GREEN);
+		System.out.print("    ");
+		
+		go(r + 8, c + 7);
+		colorBack(GREEN);
+		System.out.print("      ");
+		colorBack(RED);
+		System.out.print(" ");
+		colorBack(GREEN);
+		System.out.print("  ");
+		
+		go(r + 9, c + 5);
+		colorBack(GREEN);
+		System.out.print("             ");
+		
+		go(r + 10, c + 8);
+		colorBack(GREEN);
+		System.out.print("       ");
+		
+		go(r + 11, c + 7);
+		colorBack(GREEN);
+		System.out.print("         ");
+		
+		go(r + 12, c + 6);
+		colorBack(GREEN);
+		System.out.print("         ");
+		colorBack(RED);
+		System.out.print(" ");
+		colorBack(GREEN);
+		System.out.print(" ");
+		
+		go(r + 13, c + 5);
+		colorBack(GREEN);
+		System.out.print("  ");
+		colorBack(YELLOW);
+		System.out.print(" ");
+		colorBack(GREEN);
+		System.out.print("          ");
+		
+		go(r + 14, c + 3);
+		colorBack(GREEN);
+		System.out.print("                 ");
+		
+		go(r + 15, c + 10);
+		colorBack(101, 55, 0);
+		System.out.print("   ");
+		
+		go(r + 16, c + 10);
+		colorBack(101, 55, 0);
+		System.out.print("   ");
+		
+		go(r + 17, c + 10);
+		colorBack(101, 55, 0);
+		System.out.print("   ");
 	}
 	
 	public static final int BLACK = 30;
