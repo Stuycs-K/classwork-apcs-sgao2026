@@ -1,8 +1,78 @@
+import java.util.Arrays;
 public class Driver {
 	public static void main(String[]args) {
 		CLEAR(); HIDE(); LEFT();
+
+		int[] things = randomThree();
+		colorFore(RED);
+		border(80,30,"f\\\\@");
 		
-		for (int i = 0; i < )
+		go(1, 0);
+		int[] locs = distribute(3, 80);
+		for (int i = 0; i < things.length; i++) {
+			go(2,locs[i]);
+			if (things[i] < 25) {
+				bright(); colorFore(RED);
+			} else if (things[i] > 75) {
+				bright(); colorFore(GREEN);
+			} else {
+				bright(); colorFore(WHITE);
+			}
+			System.out.print(things[i]);
+		}
+		go(3, 2);
+		
+		RESET();
+		colorFore(CYAN);
+		line(78,"[\\/\\]");
+		
+		go(30, 0);
+		RESET(); SHOW();
+	}
+	
+	public static void border(int length, int width, String pattern) {
+		ESC(); 
+		LEFT();
+		String[] bits = pattern.split("");
+		int perimeter = length * 2 + (width - 2)* 2;
+		
+		for (int i = 1; i <= perimeter; i++) {
+			if (i < length) {
+				go(0, i);
+				System.out.print(bits[(i - 1) % bits.length]);
+				// if (i == 1) return;
+			} else if (i < length + width - 1) {
+				go(i - length + 1, length);
+				System.out.print(bits[(i - 1) % bits.length]);
+			} else if (i < length * 2 + width - 2) {
+				go(width, length - (i - length - width) - 1);
+				System.out.print(bits[(i - 1) % bits.length]);
+			} else {
+				go(width - (i - (length * 2 + width - 3)) + 1,0);
+				System.out.print(bits[(i - 1) % bits.length]);
+			}
+		} 
+		go(width + 1, 0);
+	}
+	public static void line(int length, String pattern) {
+		System.out.print(pattern.repeat(length / pattern.length()) + pattern.substring(0, (length % pattern.length())));
+	}
+	public static int[] randomThree() {
+		return new int[] {(int)(Math.random() * 100), (int)(Math.random() * 100), (int)(Math.random() * 100)};
+	}
+	public static int[] distribute(int sects, double length) {
+		int[] locs = new int[sects];
+		double even = (length - sects - 1) / (sects + 1);
+		// System.out.print(even + " ");
+		double here = 1.0;
+		
+		for (int i = 0; i < locs.length; i++) {
+			here += even;
+			
+			locs[i] = (int) here;
+			here++;
+		}
+		return locs;
 	}
 	
 	public static final int BLACK = 30;
@@ -29,6 +99,25 @@ public class Driver {
 	public static void colorBack(int r, int g, int b) {
 		ESC();
 		System.out.print("48;2;" + r + ";" + g + ";" + b + "m");
+	}
+	public static void bright() {
+		ESC();
+		System.out.print(1 + "m");
+	}	
+	public static void dark() {
+		ESC();
+		System.out.print(2 + "m");
+	}	
+	public static void italics() {
+		ESC();
+		System.out.print(3 + "m");
+	}
+	public static void erase(int r, int c, int size) {
+		go(r, c);
+		RESET();
+		for (int i = 0; i < size; i++) {
+			System.out.print(" ");
+		}
 	}
 	public static void go(int r, int c) {
 		ESC();
