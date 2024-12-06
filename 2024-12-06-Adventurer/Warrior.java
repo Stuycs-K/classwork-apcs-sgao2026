@@ -1,43 +1,56 @@
 public class Warrior extends Adventurer {
 	// field
-	private String specialName;
-	private int stamina;
-	private int staminaMax;
-	private int speed;
-	private int damage;
+	private int attack;
+	private int support;
+	private int shield;
+	private int shieldMax;
 	
 	// constructors 
 	public Warrior(String name) {
 		super(name);
-		staminaMax = 10;
-		stamina = staminaMax;
-		damage = 1;
+		shieldMax = 10;
+		shield = shieldMax;
+		attack = 1;
+		support = 1;
 	}
 	public Warrior(String name, int hp) {
 		super(name, hp);
-		staminaMax = 10;
-		stamina = staminaMax;
-		damage = 1;
+		shieldMax = 10;
+		shield = shieldMax;
+		attack = 1;
+		support = 1;
 	}
 	
 	// methods
 	public String getSpecialName() {
-		return "strength";
+		return "shield";
 	}
 	public int getSpecial() {
-		return stamina;
+		return shield;
 	}
 	public void setSpecial(int n) {
-		stamina += n;
-		if (stamina > staminaMax) stamina = staminaMax;
+		shield += n;
+		if (shield > shieldMax) shield = shieldMax;
 	}
 	public int getSpecialMax() {
-		return staminaMax;
+		return shieldMax;
 	}
 	
 	public String attack(Adventurer other) {
-		other.applyDamage(damage);
-		return other.getName() + " took " + damage + " damage from " + this.getName();
+		other.applyDamage(attack);
+		return other.getName() + " took " + attack + " damage from " + this.getName();
 	}
-	
+	public String support(Adventurer other) {
+		other.setHP(other.getHP() + support);
+		return this.getName() + " has increased " + other.getName() + "'s health by " + support;
+	}
+	public String support() {
+		setHP(getHP() + 1);
+		return this.getName() + " has increased their health by " + support;
+	}
+	public String specialAttack(Adventurer other) {
+		other.setHP((int)(getHP() * ((100 - shield) / 100.0)));
+		shield--;
+		return this.getName() + " has decreased " + other.getName() + "'s health by " + ((100 - shield - 1) / 100.0) + "%";
+	}
 }
