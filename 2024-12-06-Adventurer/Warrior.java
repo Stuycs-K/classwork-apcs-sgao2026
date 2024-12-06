@@ -41,16 +41,16 @@ public class Warrior extends Adventurer {
 		return other.getName() + " took " + attack + " damage from " + this.getName();
 	}
 	public String support(Adventurer other) {
-		other.setHP(other.getHP() + support);
+		other.applyDamage(-1 * support);
 		return this.getName() + " has increased " + other.getName() + "'s health by " + support;
 	}
 	public String support() {
-		setHP(getHP() + 1);
+		applyDamage(-1 * support);
 		return this.getName() + " has increased their health by " + support;
 	}
 	public String specialAttack(Adventurer other) {
-		other.setHP((int)(getHP() * ((100 - shield) / 100.0)));
+		other.applyDamage((int)(getHP() * ((shield) / 100.0)));
 		shield--;
-		return this.getName() + " has decreased " + other.getName() + "'s health by " + ((100 - shield - 1) / 100.0) + "%";
+		return this.getName() + " has decreased " + other.getName() + "'s health by " + ((shield + 1) / 100.0) + "%";
 	}
 }
