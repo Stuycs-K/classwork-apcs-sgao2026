@@ -8,17 +8,17 @@ public class Warrior extends Adventurer {
 	// constructors 
 	public Warrior(String name) {
 		super(name);
-		shieldMax = 10;
+		shieldMax = 9;
 		shield = shieldMax;
-		attack = 1;
-		support = 1;
+		attack = 2;
+		support = 3;
 	}
 	public Warrior(String name, int hp) {
 		super(name, hp);
-		shieldMax = 10;
+		shieldMax = 9;
 		shield = shieldMax;
-		attack = 1;
-		support = 1;
+		attack = 2;
+		support = 3;
 	}
 	
 	// methods
@@ -38,19 +38,27 @@ public class Warrior extends Adventurer {
 	
 	public String attack(Adventurer other) {
 		other.applyDamage(attack);
-		return other.getName() + " took " + attack + " damage from " + this.getName();
+		restoreSpecial(4);
+		return this + " dealt " + attack + " points of damage to " + other;
 	}
 	public String support(Adventurer other) {
 		other.applyDamage(-1 * support);
+		other.restoreSpecial(2);
 		return this.getName() + " has increased " + other.getName() + "'s health by " + support;
 	}
 	public String support() {
 		applyDamage(-1 * support);
-		return this.getName() + " has increased their health by " + support;
+		restoreSpecial(2);
+		return this.getName() + " has increased their health by " + support + " and replenished their shield.";
 	}
 	public String specialAttack(Adventurer other) {
-		other.applyDamage((int)(getHP() * ((shield) / 100.0)));
-		shield--;
-		return this.getName() + " has decreased " + other.getName() + "'s health by " + ((shield + 1) / 100.0) + "%";
+		if (shield > 0) {
+			other.applyDamage((int)(other.getHP() * ((shield) / 10.0)));
+			shield--;
+			return this.getName() + " has decreased " + other.getName() + "'s health by " + (10.0 * (shield + 1)) + "%";
+		} else {
+			other.applyDamage(attack);
+			return this + " does not have enough special points. Instead " + attack(other);
+		}
 	}
 }

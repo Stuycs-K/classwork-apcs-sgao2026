@@ -20,26 +20,27 @@ public class Game {
 				System.out.println(userName + " has quitted. Final standings: \n" + status(player) + "\n" + status(enemy));
 				return;
 			} else if (next.equals("a") || next.equals("(a)") || next.equals("attack") || next.equals("(a)ttack")) {
-				player.attack(enemy);
+				System.out.println(player.attack(enemy));
 			} else if (next.equals("sp") || next.equals("(sp)") || next.equals("special") || next.equals("(sp)ecial")) {
-				player.specialAttack(enemy);
+				System.out.println(player.specialAttack(enemy));
 			} else if (next.equals("(su)") || next.equals("support") || next.equals("(su)pport")) {
-				player.support();
+				System.out.println(player.support());
 			} else {
 				System.out.println("Please enter a valid type.");
 			}
 			
-			if (enemy.getHP() < 0) {
+			if (enemy.getHP() <= 0) {
 				System.out.println("Success ! " + player + " has won.");
 				return;
 			}
 			
-			int rand = (int)(Math.random() * 4);
-			if (rand == 0) enemy.attack(player);
-			if (rand == 1) enemy.specialAttack(player);
-			if (rand == 2) enemy.support();
+			int rand = (int)(Math.random() * 3);
+			// System.out.println(rand);
+			if (rand == 0) System.out.println(enemy.attack(player));
+			if (rand == 1) System.out.println(enemy.support());
+			if (rand == 2) System.out.println(enemy.specialAttack(player));
 			
-			if (player.getHP() < 0) {
+			if (player.getHP() <= 0) {
 				System.out.println("Rats ! " + player + " has died. Try again ?");
 				return;
 			}
