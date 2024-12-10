@@ -1,4 +1,4 @@
-import java util.Scanner;
+import java.util.Scanner;
 
 public class Game {
 	public static void main(String[]args) {
@@ -16,20 +16,39 @@ public class Game {
 			System.out.println("Type: (a)ttack / (sp)ecial / (su)pport / quit");
 			String next = in.nextLine();
 			
-			if (!(validInput(next))) {
-				System.out.println("Please try again");
+			if (next.equals("quit")) {
+				System.out.println(userName + " has quitted. Final standings: \n" + status(player) + "\n" + status(enemy));
+				return;
+			} else if (next.equals("a") || next.equals("(a)") || next.equals("attack") || next.equals("(a)ttack")) {
+				player.attack(enemy);
+			} else if (next.equals("sp") || next.equals("(sp)") || next.equals("special") || next.equals("(sp)ecial")) {
+				player.specialAttack(enemy);
+			} else if (next.equals("(su)") || next.equals("support") || next.equals("(su)pport")) {
+				player.support();
 			} else {
-				if (next.equals("quit")) {
-					System.out.println(userName + " has quitted. Final standings: \n" + status(player) + "\n" + status(enemy));
-				}
+				System.out.println("Please enter a valid type.");
 			}
+			
+			if (enemy.getHP() < 0) {
+				System.out.println("Success ! " + player + " has won.");
+				return;
+			}
+			
+			int rand = (int)(Math.random() * 4);
+			if (rand == 0) enemy.attack(player);
+			if (rand == 1) enemy.specialAttack(player);
+			if (rand == 2) enemy.support();
+			
+			if (player.getHP() < 0) {
+				System.out.println("Rats ! " + player + " has died. Try again ?");
+				return;
+			}
+			
+			System.out.println("Standings: \n" + status(player) + "\n" + status(enemy));
 		}
 	}
 	
-	private static boolean validInput(String s) {
-		return s.equals("a") || s.equals("(a)") || s.equals("attack") || s.equals"(a)ttack" || s.equals("sp") || s.equals("(sp)") || s.equals("special") || s.equals"(sp)ecial" || s.equals("su") || s.equals("(su)") || s.equals("support") || s.equals"(su)pport" || s.equals("quit");
-	}
 	private static String status (Adventurer a) {
-		return a.getName() + ": " + a.getHP() + "/" + a.getMaxHP() + " HP, " + a.getSpecial() + "/" + a.getSpecialMax() + " " + getSpecialName();
+		return a.getName() + ": " + a.getHP() + "/" + a.getmaxHP() + " HP, " + a.getSpecial() + "/" + a.getSpecialMax() + " " + a.getSpecialName();
 	}
 }
