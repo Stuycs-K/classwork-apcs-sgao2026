@@ -10,3 +10,6 @@ public class Driver {
 		}
 	}
 }
+
+// n = 46 (0m6.961s)
+// n = 46
